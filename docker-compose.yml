@@ -1,0 +1,40 @@
+services:
+  broker:
+    build: .
+    ports:
+      - "9090:9090"
+    volumes:
+      - broker-data:/app/data
+    environment:
+      BROKER_HOST: "0.0.0.0"
+      BROKER_PORT: "9090"
+
+  publisher:
+    build: .
+    command: python -m examples.publisher
+    environment:
+      BROKER_HOST: broker
+      BROKER_PORT: "9090"
+    depends_on:
+      - broker
+
+  subscriber_a:
+    build: .
+    command: python -m examples.subscriber_a
+    environment:
+      BROKER_HOST: broker
+      BROKER_PORT: "9090"
+    depends_on:
+      - broker
+
+  subscriber_b:
+    build: .
+    command: python -m examples.subscriber_b
+    environment:
+      BROKER_HOST: broker
+      BROKER_PORT: "9090"
+    depends_on:
+      - broker
+
+volumes:
+  broker-data:
