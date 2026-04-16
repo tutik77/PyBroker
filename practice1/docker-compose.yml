@@ -1,0 +1,48 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: store-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: store
+      POSTGRES_PASSWORD: store
+      POSTGRES_DB: store
+    ports:
+      - "5432:5432"
+    volumes:
+      - store-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U store -d store"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build: .
+    container_name: store-app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: store
+      DB_PASSWORD: store
+      DB_NAME: store
+      ECHO_SQL: "false"
+
+  adminer:
+    image: adminer:4
+    container_name: store-adminer
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+      ADMINER_DESIGN: dracula
+    ports:
+      - "8080:8080"
+
+volumes:
+  store-db-data:
