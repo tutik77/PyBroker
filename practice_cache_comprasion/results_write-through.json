@@ -1,0 +1,35 @@
+[
+  {
+    "test": "Read-Heavy (80/20)",
+    "strategy": "write-through",
+    "throughput": 403.2,
+    "avg_latency_ms": 23.65,
+    "cache_hits": 727,
+    "cache_misses": 79,
+    "hit_rate": 90.2,
+    "db_reads": 79,
+    "db_writes": 194
+  },
+  {
+    "test": "Balanced (50/50)",
+    "strategy": "write-through",
+    "throughput": 506.5,
+    "avg_latency_ms": 18.91,
+    "cache_hits": 467,
+    "cache_misses": 59,
+    "hit_rate": 88.78,
+    "db_reads": 59,
+    "db_writes": 474
+  },
+  {
+    "test": "Write-Heavy (20/80)",
+    "strategy": "write-through",
+    "throughput": 357.67,
+    "avg_latency_ms": 26.86,
+    "cache_hits": 172,
+    "cache_misses": 13,
+    "hit_rate": 92.97,
+    "db_reads": 13,
+    "db_writes": 815
+  }
+]

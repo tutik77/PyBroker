@@ -1,0 +1,107 @@
+{
+  "lazy": [
+    {
+      "test": "Read-Heavy (80/20)",
+      "strategy": "lazy",
+      "throughput": 559.84,
+      "avg_latency_ms": 17.17,
+      "cache_hits": 578,
+      "cache_misses": 224,
+      "hit_rate": 72.07,
+      "db_reads": 224,
+      "db_writes": 198
+    },
+    {
+      "test": "Balanced (50/50)",
+      "strategy": "lazy",
+      "throughput": 522.79,
+      "avg_latency_ms": 18.37,
+      "cache_hits": 250,
+      "cache_misses": 276,
+      "hit_rate": 47.53,
+      "db_reads": 276,
+      "db_writes": 474
+    },
+    {
+      "test": "Write-Heavy (20/80)",
+      "strategy": "lazy",
+      "throughput": 436.22,
+      "avg_latency_ms": 22.13,
+      "cache_hits": 41,
+      "cache_misses": 164,
+      "hit_rate": 20.0,
+      "db_reads": 164,
+      "db_writes": 795
+    }
+  ],
+  "write-through": [
+    {
+      "test": "Read-Heavy (80/20)",
+      "strategy": "write-through",
+      "throughput": 403.2,
+      "avg_latency_ms": 23.65,
+      "cache_hits": 727,
+      "cache_misses": 79,
+      "hit_rate": 90.2,
+      "db_reads": 79,
+      "db_writes": 194
+    },
+    {
+      "test": "Balanced (50/50)",
+      "strategy": "write-through",
+      "throughput": 506.5,
+      "avg_latency_ms": 18.91,
+      "cache_hits": 467,
+      "cache_misses": 59,
+      "hit_rate": 88.78,
+      "db_reads": 59,
+      "db_writes": 474
+    },
+    {
+      "test": "Write-Heavy (20/80)",
+      "strategy": "write-through",
+      "throughput": 357.67,
+      "avg_latency_ms": 26.86,
+      "cache_hits": 172,
+      "cache_misses": 13,
+      "hit_rate": 92.97,
+      "db_reads": 13,
+      "db_writes": 815
+    }
+  ],
+  "write-back": [
+    {
+      "test": "Read-Heavy (80/20)",
+      "strategy": "write-back",
+      "throughput": 605.24,
+      "avg_latency_ms": 15.68,
+      "cache_hits": 721,
+      "cache_misses": 78,
+      "hit_rate": 90.24,
+      "db_reads": 78,
+      "db_writes": 92
+    },
+    {
+      "test": "Balanced (50/50)",
+      "strategy": "write-back",
+      "throughput": 487.99,
+      "avg_latency_ms": 19.47,
+      "cache_hits": 458,
+      "cache_misses": 57,
+      "hit_rate": 88.93,
+      "db_reads": 57,
+      "db_writes": 100
+    },
+    {
+      "test": "Write-Heavy (20/80)",
+      "strategy": "write-back",
+      "throughput": 544.6,
+      "avg_latency_ms": 17.11,
+      "cache_hits": 195,
+      "cache_misses": 16,
+      "hit_rate": 92.42,
+      "db_reads": 16,
+      "db_writes": 100
+    }
+  ]
+}
