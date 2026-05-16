@@ -7,7 +7,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 9090
+EXPOSE 9090 8080
 VOLUME /app/data
 
 CMD ["python", "-m", "pybroker.server"]

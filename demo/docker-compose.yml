@@ -1,6 +1,8 @@
 services:
   broker:
-    build: .
+    build:
+      context: ..
+      dockerfile: Dockerfile
     ports:
       - "9090:9090"
       - "8080:8080"
@@ -13,7 +15,7 @@ services:
 
   order_service:
     build:
-      context: .
+      context: ..
       dockerfile: demo/Dockerfile
     command: uvicorn demo.order_service:app --host 0.0.0.0 --port 8000
     ports:
@@ -26,7 +28,7 @@ services:
 
   notification_service:
     build:
-      context: .
+      context: ..
       dockerfile: demo/Dockerfile
     command: uvicorn demo.notification_service:app --host 0.0.0.0 --port 8000
     ports:
@@ -39,7 +41,7 @@ services:
 
   analytics_service:
     build:
-      context: .
+      context: ..
       dockerfile: demo/Dockerfile
     command: uvicorn demo.analytics_service:app --host 0.0.0.0 --port 8000
     ports:

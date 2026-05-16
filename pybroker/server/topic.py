@@ -41,6 +41,14 @@ class TopicManager:
                 result.append((conn, sub_id))
         return result
 
+    def get_info(self) -> list[dict]:
+        topics: dict[str, int] = {}
+        for dest, subs in self._exact.items():
+            topics[dest] = len(subs)
+        for pattern, conn, sub_id in self._wildcard:
+            topics[pattern] = topics.get(pattern, 0) + 1
+        return [{"name": name, "subscribers": count} for name, count in topics.items()]
+
 
 def _match(pattern: str, destination: str) -> bool:
     p_parts = pattern.split(".")

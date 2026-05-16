@@ -14,8 +14,9 @@ def main():
     host = os.environ.get("BROKER_HOST", "0.0.0.0")
     port = int(os.environ.get("BROKER_PORT", "9090"))
     db_path = os.environ.get("BROKER_DB", "data/broker.db")
+    web_port = int(os.environ.get("BROKER_WEB_PORT", "8080"))
 
-    server = BrokerServer(host=host, port=port, db_path=db_path)
+    server = BrokerServer(host=host, port=port, db_path=db_path, web_port=web_port)
     asyncio.run(server.start())
 
 

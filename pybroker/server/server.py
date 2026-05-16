@@ -6,6 +6,7 @@ from pybroker.server.connection import Connection
 from pybroker.server.metrics import Metrics
 from pybroker.server.protocol import read_frame
 from pybroker.server.storage import Storage
+from pybroker.server.web import WebUI
 
 log = logging.getLogger(__name__)
 
@@ -17,6 +18,7 @@ class BrokerServer:
         port: int = 9090,
         db_path: str = "data/broker.db",
         metrics_interval: float = 30.0,
+        web_port: int = 8080,
     ):
         self._host = host
         self._port = port
@@ -24,10 +26,13 @@ class BrokerServer:
         self._metrics = Metrics()
         self._broker = Broker(self._storage, self._metrics)
         self._metrics_interval = metrics_interval
+        self._web = WebUI(self._broker, host, web_port)
 
     async def start(self):
         await self._storage.initialize()
         await self._broker.restore()
+        await self._web.start()
+        log.info("Web UI available on port %d", self._web._port)
 
         server = await asyncio.start_server(
             self._handle_client, self._host, self._port

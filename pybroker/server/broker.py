@@ -49,6 +49,37 @@ class Broker:
     def register(self, connection: Connection):
         self._connections[connection.id] = connection
 
+    def get_connections_info(self) -> list[dict]:
+        return [
+            {
+                "id": c.id,
+                "peer": c.peer,
+                "subscriptions": [
+                    {"id": s.id, "destination": s.destination, "ack_mode": s.ack_mode}
+                    for s in c.subscriptions.values()
+                ],
+            }
+            for c in self._connections.values()
+            if c.connected
+        ]
+
+    def get_topics_info(self) -> list[dict]:
+        return self._topics.get_info()
+
+    def get_queues_info(self) -> list[dict]:
+        return [
+            {
+                "name": q.name,
+                "type": q.queue_type,
+                "ready": q.ready_count,
+                "in_flight": len(q.in_flight),
+                "consumers": len(q.consumers),
+                "visibility_timeout": q.visibility_timeout,
+                "max_deliveries": q.max_deliveries,
+            }
+            for q in self._queues.all_queues()
+        ]
+
     async def unregister(self, connection: Connection):
         self._topics.remove_connection(connection)
         self._queues.remove_connection(connection)
